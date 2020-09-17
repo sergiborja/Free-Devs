@@ -9,7 +9,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
-const routes = [{ path: "/", component: Home }];
+const routes = [{ path: "/home", component: Home }];
 
 const router = new VueRouter({ routes, mode: "history" });
 
