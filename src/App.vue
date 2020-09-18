@@ -1,5 +1,7 @@
-<template >
-  <router-view />
+<template>
+  <transition name="showChildAnimated">
+    <router-view />
+  </transition>
 </template>
 
 <script>
@@ -18,5 +20,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+.showChildAnimated-enter-active,
+.showChildAnimated-leave-active {
+  transition: opacity 0.5s;
 }
 </style>

@@ -2,14 +2,21 @@
   <div class="backgroundImage" id="app">
     <div class="leftNavbarWrapper">
       <img
+        id="logo"
         class="leftNavbarWrapper__logo"
+        :class="this.logoAnimation ? 'logoAnimation' : ''"
         src="../assets/mylogo-white.png"
         type="button"
         @click="() => (this.pageState = 0)"
       />
       <ul class="navbarListWrapper">
         <li
-          @click="() => (this.pageState = 1)"
+          @click="
+            () => {
+              this.logoAnimation = true;
+              this.pageState = 1;
+            }
+          "
           type="button"
           :class="pageState === 1 ? 'selectedListElement' : 'listElements'"
         >
@@ -48,6 +55,7 @@ export default {
   data() {
     return {
       pageState: 0,
+      logoAnimation: false,
     };
   },
   methods: {},
@@ -55,13 +63,15 @@ export default {
     var txt =
       "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode";
     var i = 0;
-    const writeNow = () => {
-      if (i < txt.length) {
-        document.getElementById("demo").innerHTML += txt.charAt(i);
-        i++;
-      }
-    };
-    setInterval(writeNow, 30);
+    setTimeout(function() {
+      const writeNow = () => {
+        if (i < txt.length) {
+          document.getElementById("demo").innerHTML += txt.charAt(i);
+          i++;
+        }
+      };
+      setInterval(writeNow, 30);
+    }, 1500);
   },
 };
 </script>
@@ -86,23 +96,23 @@ export default {
 
 .leftNavbarWrapper__logo {
   height: 27vh;
-  width: 27vh;
   margin-top: 5vh;
   color: white;
-  /* animation-name: titleAnimation;
-  animation-duration: 2s;
-  animation-delay: 3s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-out; */
 }
 
-/* @keyframes titleAnimation {
+.logoAnimation {
+  animation-name: logoAnimation;
+  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+@keyframes logoAnimation {
   100% {
+    height: 35vh;
     margin-top: 20vh;
-    height: 30vh;
-    width: 30vh;
   }
-} */
+}
 .initalTextContainer {
   position: absolute;
   top: 30vh;
@@ -122,28 +132,21 @@ export default {
   color: white;
   font-size: 10vh;
   width: 90vw;
+  opacity: 0%;
   font-family: "Montserrat", sans-serif;
   -webkit-text-stroke: 1px black;
-  /* animation-name: entryTextAnimation;
+  animation-name: entryTextAnimation;
   animation-duration: 0.85s;
-  animation-delay: 3s;
+  animation-delay: 0.2s;
   animation-fill-mode: forwards;
-  animation-timing-function: ease-out; */
+  animation-timing-function: ease-out;
 }
-/* 
+
 @keyframes entryTextAnimation {
-  80% {
-    font-size: 0vh;
-    width: 18vw;
-    -webkit-text-stroke: 0px black;
-  }
   100% {
-    font-size: 0vh;
-    width: 18vw;
-    left: -200px;
-    -webkit-text-stroke: 0px black;
+    opacity: 100%;
   }
-} */
+}
 
 .navbarListWrapper {
   list-style-type: none;

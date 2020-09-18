@@ -1,14 +1,17 @@
 <template>
   <div class="wrapper">
-    <h1 style="color: white">Welcome to</h1>
-    <!-- <h1 style="color: white">to</h1> -->
+    <!-- <h1 class="welcome">Welcome to</h1> -->
     <img class="logo" src="../assets/mylogo-white.png" alt />
-    <p style="color: white;">WHY ARE YOU HERE?</p>
+    <p class="welcome">WELCOME, WHY ARE YOU HERE?</p>
     <div class="squaresContainer">
-      <div @click="clicked()" type="button" class="chooseSquare companyImage">
+      <div
+        @click="clicked()"
+        type="button"
+        class="chooseSquare companyImage welcome"
+      >
         <p class="textOnHover">I'm a consolidated company</p>
       </div>
-      <div type="button" class="chooseSquare entrepreneurImage">
+      <div type="button" class="chooseSquare entrepreneurImage welcome">
         <p class="textOnHover">I'm an entrepeneur or young start-up</p>
       </div>
     </div>
@@ -32,8 +35,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .wrapper {
-  /* background-image: url("../assets/main-background.png");
-  background-size: 100% 100%; */
   background-color: rgb(31, 30, 30);
   height: 100vh;
   display: flex;
@@ -41,9 +42,37 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-.logo {
-  margin-top: -40px;
+.welcome {
+  color: white;
+  animation-name: welcomeAnimation;
+  animation-duration: 0.5s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0%;
 }
+
+@keyframes welcomeAnimation {
+  100% {
+    opacity: 100%;
+  }
+}
+.logo {
+  margin-top: 25%;
+  animation-name: logoAnimation;
+  animation-duration: 0.5s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes logoAnimation {
+  0% {
+  }
+  100% {
+    margin-top: -40px;
+  }
+}
+
 h3 {
   margin: 40px 0 0;
 }
@@ -88,10 +117,32 @@ a {
 .entrepreneurImage {
   background-image: url("../assets/entrepreneur.jpg");
   background-size: cover;
+  animation-name: entrepAnimation;
+  animation-duration: 0.5s;
+  animation-delay: 2.6s;
+  animation-fill-mode: forwards;
+  opacity: 0%;
+}
+
+@keyframes entrepAnimation {
+  100% {
+    opacity: 100%;
+  }
 }
 
 .companyImage {
   background-image: url("../assets/company.jpg");
   background-size: cover;
+  animation-name: companyAnimation;
+  animation-duration: 0.5s;
+  animation-delay: 2.3s;
+  animation-fill-mode: forwards;
+  opacity: 0%;
+}
+
+@keyframes companyAnimation {
+  100% {
+    opacity: 100%;
+  }
 }
 </style>
