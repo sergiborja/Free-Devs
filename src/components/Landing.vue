@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <h1>Welcome to FreeDevs</h1>
+  <div class="wrapper">
+    <h1 style="color: white">Welcome to</h1>
+    <!-- <h1 style="color: white">to</h1> -->
+    <img class="logo" src="../assets/mylogo-white.png" alt />
+    <p style="color: white;">WHY ARE YOU HERE?</p>
     <div class="squaresContainer">
-      <div type="button" class="chooseSquare">
-        <p>I'm a consolidated company</p>
+      <div @click="clicked()" type="button" class="chooseSquare companyImage">
+        <p class="textOnHover">I'm a consolidated company</p>
       </div>
-      <div @click="clicked()" type="button" class="chooseSquare">
-        <p>I'm an entrepeneur or young start-up</p>
+      <div type="button" class="chooseSquare entrepreneurImage">
+        <p class="textOnHover">I'm an entrepeneur or young start-up</p>
       </div>
     </div>
   </div>
@@ -19,8 +22,8 @@ export default {
     msg: String,
   },
   methods: {
-    clicked: function() {
-      this.$router.push({ path: "/home" });
+    clicked: function () {
+      this.$router.push({ path: "/parent" });
     },
   },
 };
@@ -28,6 +31,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.wrapper {
+  background-image: url("../assets/main-background.png");
+  background-size: 100% 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.logo {
+  margin-top: -40px;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -41,6 +56,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.textOnHover {
+  display: none;
 }
 .chooseSquare {
   background: skyblue;
@@ -56,10 +74,23 @@ a {
 }
 .chooseSquare:hover {
   transform: scale(1.1);
+  filter: opacity(30%);
+}
+.chooseSquare:hover .textOnHover {
+  display: inline;
 }
 .squaresContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+.entrepreneurImage {
+  background-image: url("../assets/entrepreneur.jpg");
+  background-size: cover;
+}
+
+.companyImage {
+  background-image: url("../assets/company.jpg");
+  background-size: cover;
 }
 </style>

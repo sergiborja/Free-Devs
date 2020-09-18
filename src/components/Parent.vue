@@ -1,0 +1,204 @@
+<template >
+  <div class="backgroundImage" id="app">
+    <div class="leftNavbarWrapper">
+      <img class="leftNavbarWrapper__logo" src="../assets/mylogo-white.png" alt />
+      <ul class="navbarListWrapper">
+        <li @click="() => moveTo()" type="button" class="listElements">WHY US</li>
+        <li type="button" class="listElements">THE TEAM</li>
+        <li type="button" class="listElements">REVIEWS</li>
+        <li type="button" class="listElements">CONTACT US</li>
+      </ul>
+    </div>
+    <transition v-if="this.pageState===0" name="initialTextAnimation">
+      <div class="initalTextContainer">
+        <h1 class="entryTitle">HIGH QUALITY SERVICES, BLA BLA YOUNG</h1>
+        <p id="demo" class="entryText"></p>
+      </div>
+    </transition>
+    <div class="componentsWindow">
+      <transition v-if="this.pageState===1" name="showChildAnimated">
+        <home></home>
+      </transition>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import HomeVue from "./Home.vue";
+export default {
+  name: "Parent",
+  components: {
+    home: HomeVue,
+  },
+  data() {
+    return {
+      pageState: 0,
+    };
+  },
+  methods: {
+    moveTo: function moveTo() {
+      this.pageState = 1;
+    },
+  },
+  mounted() {
+    var txt =
+      "Hola mama que tal queta estic parlant de lescola, saps quian em refereix no. Ja sabia que di.";
+    var i = 0;
+    const writeNow = () => {
+      if (i < txt.length) {
+        document.getElementById("demo").innerHTML += txt.charAt(i);
+        i++;
+      }
+    };
+    setInterval(writeNow, 50);
+  },
+};
+</script>
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+.leftNavbarWrapper {
+  height: 100vh;
+  width: 25vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftNavbarWrapper__logo {
+  height: 27vh;
+  width: 27vh;
+  margin-top: 5vh;
+  color: white;
+  /* animation-name: titleAnimation;
+  animation-duration: 2s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out; */
+}
+
+/* @keyframes titleAnimation {
+  100% {
+    margin-top: 20vh;
+    height: 30vh;
+    width: 30vh;
+  }
+} */
+.initalTextContainer {
+  position: absolute;
+  top: 30vh;
+  left: 10vh;
+  z-index: 1;
+}
+.entryText {
+  color: black;
+  font-size: 3vh;
+  position: absolute;
+  text-align: center;
+  top: 29vh;
+  left: 25vw;
+}
+.entryTitle {
+  color: white;
+  font-size: 5vw;
+  width: 90vw;
+  font-family: "Montserrat", sans-serif;
+  -webkit-text-stroke: 1px black;
+  /* animation-name: entryTextAnimation;
+  animation-duration: 0.85s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out; */
+}
+
+/* @keyframes entryTextAnimation {
+  80% {
+    font-size: 0vh;
+    width: 18vw;
+    -webkit-text-stroke: 0px black;
+  }
+  100% {
+    font-size: 0vh;
+    width: 18vw;
+    left: -200px;
+    -webkit-text-stroke: 0px black;
+  }
+} */
+
+.navbarListWrapper {
+  color: white;
+  list-style-type: none;
+  margin-bottom: 15vh;
+  padding: 0;
+  margin-left: -3vw;
+}
+.listElements {
+  margin: 3vh 0;
+  font-size: 2vh;
+}
+.listElements:hover {
+  color: gray;
+}
+.backgroundImage {
+  background-image: url("../assets/main-background.png");
+  background-size: 100% 100%;
+  /* filter: blur(8px); */
+  /* background: rgba(0, 0, 0, 0.3); */
+}
+
+.componentsWindow {
+  height: 100vh;
+  position: absolute;
+  color: black;
+  top: 0vh;
+  left: 25vw;
+  right: 0vw;
+  padding: 2vh;
+  background: rgba(245, 245, 245, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.showChildAnimated-enter-active,
+.showChildAnimated-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+}
+
+.showChildAnimated-enter-active {
+  transition-delay: 0.5s;
+}
+
+.showChildAnimated-enter,
+.showChildAnimated-leave-to {
+  opacity: 0;
+  transform: translateY(100vh);
+}
+.showChildAnimated-enter-to,
+.showChildAnimated-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.initialTextAnimation-enter-active,
+.initialTextAnimation-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+}
+.initialTextAnimation-enter,
+.initialTextAnimation-leave-to {
+  opacity: 0;
+}
+.initialTextAnimation-enter-to,
+.initialTextAnimation-leave {
+  opacity: 1;
+}
+</style>
