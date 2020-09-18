@@ -22,7 +22,7 @@ export default {
     msg: String,
   },
   methods: {
-    clicked: function () {
+    clicked: function() {
       this.$router.push({ path: "/parent" });
     },
   },
@@ -32,8 +32,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .wrapper {
-  background-image: url("../assets/main-background.png");
-  background-size: 100% 100%;
+  /* background-image: url("../assets/main-background.png");
+  background-size: 100% 100%; */
+  background-color: rgb(31, 30, 30);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -59,6 +60,7 @@ a {
 }
 .textOnHover {
   display: none;
+  background-color: white;
 }
 .chooseSquare {
   background: skyblue;
@@ -74,7 +76,6 @@ a {
 }
 .chooseSquare:hover {
   transform: scale(1.1);
-  filter: opacity(30%);
 }
 .chooseSquare:hover .textOnHover {
   display: inline;

@@ -1,28 +1,42 @@
-<template >
+<template>
   <div class="backgroundImage" id="app">
     <div class="leftNavbarWrapper">
-      <img class="leftNavbarWrapper__logo" src="../assets/mylogo-white.png" alt />
+      <img
+        class="leftNavbarWrapper__logo"
+        src="../assets/mylogo-white.png"
+        type="button"
+        @click="() => (this.pageState = 0)"
+      />
       <ul class="navbarListWrapper">
-        <li @click="() => moveTo()" type="button" class="listElements">WHY US</li>
-        <li type="button" class="listElements">THE TEAM</li>
+        <li
+          @click="() => (this.pageState = 1)"
+          type="button"
+          :class="pageState === 1 ? 'selectedListElement' : 'listElements'"
+        >
+          WHY US
+        </li>
+        <li type="button" class="listElements">
+          THE TEAM
+        </li>
         <li type="button" class="listElements">REVIEWS</li>
         <li type="button" class="listElements">CONTACT US</li>
       </ul>
     </div>
-    <transition v-if="this.pageState===0" name="initialTextAnimation">
+    <transition v-if="this.pageState === 0" name="initialTextAnimation">
       <div class="initalTextContainer">
-        <h1 class="entryTitle">HIGH QUALITY SERVICES, BLA BLA YOUNG</h1>
+        <h1 class="entryTitle">
+          TAKE THE EASIEST AND OPTIMAL WAY
+        </h1>
         <p id="demo" class="entryText"></p>
       </div>
     </transition>
     <div class="componentsWindow">
-      <transition v-if="this.pageState===1" name="showChildAnimated">
+      <transition v-if="this.pageState === 1" name="showChildAnimated">
         <home></home>
       </transition>
     </div>
   </div>
 </template>
-
 
 <script>
 import HomeVue from "./Home.vue";
@@ -36,14 +50,10 @@ export default {
       pageState: 0,
     };
   },
-  methods: {
-    moveTo: function moveTo() {
-      this.pageState = 1;
-    },
-  },
+  methods: {},
   mounted() {
     var txt =
-      "Hola mama que tal queta estic parlant de lescola, saps quian em refereix no. Ja sabia que di.";
+      "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode";
     var i = 0;
     const writeNow = () => {
       if (i < txt.length) {
@@ -51,7 +61,7 @@ export default {
         i++;
       }
     };
-    setInterval(writeNow, 50);
+    setInterval(writeNow, 30);
   },
 };
 </script>
@@ -106,10 +116,11 @@ export default {
   text-align: center;
   top: 29vh;
   left: 25vw;
+  font-weight: 600;
 }
 .entryTitle {
   color: white;
-  font-size: 5vw;
+  font-size: 10vh;
   width: 90vw;
   font-family: "Montserrat", sans-serif;
   -webkit-text-stroke: 1px black;
@@ -119,8 +130,8 @@ export default {
   animation-fill-mode: forwards;
   animation-timing-function: ease-out; */
 }
-
-/* @keyframes entryTextAnimation {
+/* 
+@keyframes entryTextAnimation {
   80% {
     font-size: 0vh;
     width: 18vw;
@@ -135,13 +146,17 @@ export default {
 } */
 
 .navbarListWrapper {
-  color: white;
   list-style-type: none;
   margin-bottom: 15vh;
   padding: 0;
   margin-left: -3vw;
 }
 .listElements {
+  margin: 3vh 0;
+  font-size: 2vh;
+  color: white;
+}
+.selectedListElement {
   margin: 3vh 0;
   font-size: 2vh;
 }
@@ -172,6 +187,8 @@ export default {
 .showChildAnimated-enter-active,
 .showChildAnimated-leave-active {
   transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+  transition-duration: 1s;
+  transform: translateY(-100vh);
 }
 
 .showChildAnimated-enter-active {
@@ -181,17 +198,19 @@ export default {
 .showChildAnimated-enter,
 .showChildAnimated-leave-to {
   opacity: 0;
-  transform: translateY(100vh);
+  transform: translateY(0);
 }
 .showChildAnimated-enter-to,
 .showChildAnimated-leave {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(100vh);
 }
 
 .initialTextAnimation-enter-active,
 .initialTextAnimation-leave-active {
   transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+  transition-duration: 1s;
+  transform: translateY(-100vh);
 }
 .initialTextAnimation-enter,
 .initialTextAnimation-leave-to {
