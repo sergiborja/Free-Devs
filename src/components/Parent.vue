@@ -1,5 +1,44 @@
 <template>
   <div class="backgroundImage" id="app">
+    <div>
+      <b-button v-b-toggle.sidebar-variant>Toggle Sidebar</b-button>
+      <b-sidebar
+        id="sidebar-variant"
+        bg-variant="dark"
+        text-variant="light"
+        shadow
+      >
+        <div class="px-3 py-2 sideBarElementContainer">
+          <img
+            id="logo"
+            class="leftNavbarWrapper__logo"
+            :class="this.logoAnimation ? 'logoAnimation' : ''"
+            src="../assets/mylogo-white.png"
+            type="button"
+            @click="() => (this.pageState = 0)"
+          />
+          <ul class="navbarListWrapper">
+            <li
+              @click="
+                () => {
+                  this.logoAnimation = true;
+                  this.pageState = 1;
+                }
+              "
+              type="button"
+              :class="pageState === 1 ? 'selectedListElement' : 'listElements'"
+            >
+              WHY US
+            </li>
+            <li type="button" class="listElements">
+              PROJECTS
+            </li>
+            <li type="button" class="listElements">REVIEWS</li>
+            <li type="button" class="listElements">CONTACT US</li>
+          </ul>
+        </div>
+      </b-sidebar>
+    </div>
     <div class="leftNavbarWrapper">
       <img
         id="logo"
@@ -23,7 +62,7 @@
           WHY US
         </li>
         <li type="button" class="listElements">
-          THE TEAM
+          PROJECTS
         </li>
         <li type="button" class="listElements">REVIEWS</li>
         <li type="button" class="listElements">CONTACT US</li>
@@ -92,12 +131,20 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  display: none;
 }
 
 .leftNavbarWrapper__logo {
-  height: 27vh;
-  margin-top: 5vh;
+  height: 30vh;
   color: white;
+}
+
+.sideBarElementContainer {
+  margin-top: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .logoAnimation {
@@ -115,23 +162,21 @@ export default {
 }
 .initalTextContainer {
   position: absolute;
-  top: 30vh;
-  left: 10vh;
+  top: 10vh;
+  left: 10vw;
   z-index: 1;
 }
 .entryText {
   color: black;
-  font-size: 3vh;
+  font-size: 5vw;
   position: absolute;
-  text-align: center;
-  top: 29vh;
-  left: 25vw;
+  top: 55vh;
+  left: 0vw;
   font-weight: 600;
 }
 .entryTitle {
   color: white;
-  font-size: 10vh;
-  width: 90vw;
+  font-size: 15vw;
   opacity: 0%;
   font-family: "Montserrat", sans-serif;
   -webkit-text-stroke: 1px black;
@@ -149,19 +194,17 @@ export default {
 }
 
 .navbarListWrapper {
+  margin-top: 6vh;
   list-style-type: none;
-  margin-bottom: 15vh;
   padding: 0;
-  margin-left: -3vw;
 }
 .listElements {
   margin: 3vh 0;
-  font-size: 2vh;
+  font-size: 3vh;
   color: white;
 }
 .selectedListElement {
   margin: 3vh 0;
-  font-size: 2vh;
 }
 .listElements:hover {
   color: gray;
@@ -169,6 +212,7 @@ export default {
 .backgroundImage {
   background-image: url("../assets/main-background.png");
   background-size: 100% 100%;
+  height: 100vh;
   /* filter: blur(8px); */
   /* background: rgba(0, 0, 0, 0.3); */
 }
@@ -178,10 +222,10 @@ export default {
   position: absolute;
   color: black;
   top: 0vh;
-  left: 25vw;
+  left: 0;
   right: 0vw;
   padding: 2vh;
-  background: rgba(245, 245, 245, 0.2);
+  background: rgba(245, 245, 245, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -222,5 +266,147 @@ export default {
 .initialTextAnimation-enter-to,
 .initialTextAnimation-leave {
   opacity: 1;
+}
+
+@media only screen and (min-width: 770px) {
+  .leftNavbarWrapper {
+    height: 100vh;
+    width: 25vw;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .leftNavbarWrapper__logo {
+    height: 27vh;
+    margin-top: 5vh;
+    color: white;
+  }
+
+  .logoAnimation {
+    animation-name: logoAnimation;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+  @keyframes logoAnimation {
+    100% {
+      height: 35vh;
+      margin-top: 20vh;
+    }
+  }
+  .initalTextContainer {
+    position: absolute;
+    top: 30vh;
+    left: 10vh;
+    z-index: 1;
+  }
+  .entryText {
+    color: black;
+    font-size: 3vh;
+    position: absolute;
+    text-align: center;
+    top: 29vh;
+    left: 25vw;
+    font-weight: 600;
+  }
+  .entryTitle {
+    color: white;
+    font-size: 10vh;
+    width: 90vw;
+    opacity: 0%;
+    font-family: "Montserrat", sans-serif;
+    -webkit-text-stroke: 1px black;
+    animation-name: entryTextAnimation;
+    animation-duration: 0.85s;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes entryTextAnimation {
+    100% {
+      opacity: 100%;
+    }
+  }
+
+  .navbarListWrapper {
+    list-style-type: none;
+    margin-bottom: 15vh;
+    padding: 0;
+    margin-left: -3vw;
+  }
+  .listElements {
+    margin: 3vh 0;
+    font-size: 2vh;
+    color: white;
+  }
+  .selectedListElement {
+    margin: 3vh 0;
+    font-size: 2vh;
+  }
+  .listElements:hover {
+    color: gray;
+  }
+  .backgroundImage {
+    background-image: url("../assets/main-background.png");
+    background-size: 100% 100%;
+    /* filter: blur(8px); */
+    /* background: rgba(0, 0, 0, 0.3); */
+  }
+
+  .componentsWindow {
+    height: 100vh;
+    position: absolute;
+    color: black;
+    top: 0vh;
+    left: 25vw;
+    right: 0vw;
+    padding: 2vh;
+    background: rgba(245, 245, 245, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .showChildAnimated-enter-active,
+  .showChildAnimated-leave-active {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+    transition-duration: 1s;
+    transform: translateY(-100vh);
+  }
+
+  .showChildAnimated-enter-active {
+    transition-delay: 0.5s;
+  }
+
+  .showChildAnimated-enter,
+  .showChildAnimated-leave-to {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  .showChildAnimated-enter-to,
+  .showChildAnimated-leave {
+    opacity: 1;
+    transform: translateY(100vh);
+  }
+
+  .initialTextAnimation-enter-active,
+  .initialTextAnimation-leave-active {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+    transition-duration: 1s;
+    transform: translateY(-100vh);
+  }
+  .initialTextAnimation-enter,
+  .initialTextAnimation-leave-to {
+    opacity: 0;
+  }
+  .initialTextAnimation-enter-to,
+  .initialTextAnimation-leave {
+    opacity: 1;
+  }
 }
 </style>

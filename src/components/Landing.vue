@@ -36,7 +36,7 @@ export default {
 <style scoped>
 .wrapper {
   background-color: rgb(31, 30, 30);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,10 +93,9 @@ a {
 }
 .chooseSquare {
   background: skyblue;
-  height: 40vh;
   width: 40vh;
+  height: 40vw;
   border: 2px solid black;
-  margin: 5vw;
   margin-top: 5vh;
   transition: transform 0.2s;
   display: flex;
@@ -111,7 +110,7 @@ a {
 }
 .squaresContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 }
 .entrepreneurImage {
@@ -143,6 +142,38 @@ a {
 @keyframes companyAnimation {
   100% {
     opacity: 100%;
+  }
+}
+@media only screen and (min-width: 770px) {
+  .chooseSquare {
+    height: 30vw;
+    width: 40vw;
+    border: 2px solid black;
+    margin: 5vw;
+    margin-top: 5vh;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 950px) {
+  .chooseSquare {
+    height: 40vh;
+    width: 40vh;
+    border: 2px solid black;
+    margin: 5vw;
+    margin-top: 5vh;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .squaresContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 }
 </style>
