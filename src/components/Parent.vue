@@ -29,50 +29,46 @@
         <li type="button" class="listElements">CONTACT US</li>
       </ul>
     </div>
+
+    <div :class="hideMenu ? 'hideMenu' : 'showMenu'" class="sideBarButton">
+      <b-sidebar
+        id="sidebar-variant"
+        bg-variant="dark"
+        text-variant="light"
+        shadow
+      >
+        <div class="px-3 py-2 sideBarElementContainer">
+          <img
+            id="logo"
+            class="leftNavbarWrapper__logo"
+            src="../assets/mylogo-white.png"
+            @click="() => (this.pageState = 0)"
+          />
+          <ul class="navbarListWrapper">
+            <li @click="() => goToSelected(1)">
+              WHY US
+            </li>
+            <li class="listElements">
+              PROJECTS
+            </li>
+            <li class="listElements">REVIEWS</li>
+            <li class="listElements">CONTACT US</li>
+          </ul>
+        </div>
+      </b-sidebar>
+    </div>
     <div class="componentsWindow">
-      <div class="sideBarButton">
-        <b-button v-b-toggle.sidebar-variant>
-          <img class="menuIcon" src="../assets/menu-icon.png" alt="" />
-        </b-button>
-        <b-sidebar
-          id="sidebar-variant"
-          bg-variant="dark"
-          text-variant="light"
-          shadow
-        >
-          <div class="px-3 py-2 sideBarElementContainer">
-            <img
-              id="logo"
-              class="leftNavbarWrapper__logo"
-              src="../assets/mylogo-white.png"
-              type="button"
-              @click="() => (this.pageState = 0)"
-            />
-            <ul class="navbarListWrapper">
-              <li
-                @click="() => (this.pageState = 1)"
-                type="button"
-                :class="
-                  pageState === 1 ? 'selectedListElement' : 'listElements'
-                "
-              >
-                WHY US
-              </li>
-              <li type="button" class="listElements">
-                PROJECTS
-              </li>
-              <li type="button" class="listElements">REVIEWS</li>
-              <li type="button" class="listElements">CONTACT US</li>
-            </ul>
-          </div>
-        </b-sidebar>
-      </div>
+      <img
+        v-b-toggle.sidebar-variant
+        class="menuIcon"
+        src="../assets/menu-icon.png"
+        alt=""
+      />
       <transition v-if="this.pageState === 1" name="showChildAnimated">
         <home></home>
       </transition>
       <img
-        type="button"
-        @click="() => (this.pageState = 1)"
+        @click="() => pageState++"
         class="goDown"
         src="../assets/down-icon.png"
         alt=""
@@ -100,12 +96,18 @@ export default {
     return {
       pageState: 0,
       logoAnimation: false,
+      hideMenu: false,
     };
   },
-  methods: {},
+  methods: {
+    goToSelected: function goToSelected(screenToGo) {
+      this.pageState = screenToGo;
+      this.hideMenu = true;
+    },
+  },
   mounted() {
     var txt =
-      "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode";
+      "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
     var i = 0;
     setTimeout(function() {
       const writeNow = () => {
@@ -121,9 +123,9 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=Montserrat:wght@900&display=swap");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Kumbh Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -132,9 +134,23 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 4;
 }
 .menuIcon {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 40px;
+  margin: 2vh;
+  border-radius: none;
+  outline: none;
+}
+
+.hideMenu {
+  display: none;
+}
+.showMenu {
+  display: inline-block;
 }
 
 .leftNavbarWrapper {
@@ -164,21 +180,22 @@ export default {
 .initalTextContainer {
   position: absolute;
   top: 10vh;
-  left: 10vw;
-  z-index: 1;
 }
 .entryText {
   color: black;
-  font-size: 5vw;
+  font-size: 6vw;
   position: absolute;
-  top: 55vh;
-  left: 0vw;
+  top: 47vh;
   font-weight: 600;
+  margin-top: 5vh;
+  margin-left: 1.5vh;
+  margin-right: 1vh;
 }
 .entryTitle {
   color: white;
   font-size: 15vw;
   opacity: 0%;
+  margin-left: 10vw;
   font-family: "Montserrat", sans-serif;
   -webkit-text-stroke: 1px black;
   animation-name: entryTextAnimation;
@@ -229,7 +246,7 @@ export default {
   align-items: center;
 }
 .goDown {
-  position: absolute;
+  position: fixed;
   bottom: 1vh;
   right: 0;
   left: 0;
@@ -242,8 +259,7 @@ export default {
 .showChildAnimated-enter-active,
 .showChildAnimated-leave-active {
   transition: opacity 0.5s ease-in-out, transform 0.5s ease;
-  transition-duration: 1s;
-  transform: translateY(-100vh);
+  transition-duration: 5s;
 }
 
 .showChildAnimated-enter-active {
@@ -253,7 +269,6 @@ export default {
 .showChildAnimated-enter,
 .showChildAnimated-leave-to {
   opacity: 0;
-  transform: translateY(0);
 }
 .showChildAnimated-enter-to,
 .showChildAnimated-leave {

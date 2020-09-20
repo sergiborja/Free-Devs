@@ -4,14 +4,10 @@
     <img class="logo" src="../assets/mylogo-white.png" alt />
     <p class="welcome">WELCOME, WHY ARE YOU HERE?</p>
     <div class="squaresContainer">
-      <div
-        @click="clicked()"
-        type="button"
-        class="chooseSquare companyImage welcome"
-      >
+      <div @click="clicked()" class="chooseSquare companyImage welcome">
         <p class="textOnHover">I'm a consolidated company</p>
       </div>
-      <div type="button" class="chooseSquare entrepreneurImage welcome">
+      <div class="chooseSquare entrepreneurImage welcome">
         <p class="textOnHover">I'm an entrepeneur or young start-up</p>
       </div>
     </div>
