@@ -13,7 +13,7 @@ Vue.use(BootstrapVue);
 
 const routes = [
   { path: "/home", component: Home },
-  { path: "/landing", component: Landing },
+  { path: "/", component: Landing },
   { path: "/Parent", component: Parent },
 ];
 

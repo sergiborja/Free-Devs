@@ -1,44 +1,5 @@
 <template>
   <div class="backgroundImage" id="app">
-    <div>
-      <b-button v-b-toggle.sidebar-variant>Toggle Sidebar</b-button>
-      <b-sidebar
-        id="sidebar-variant"
-        bg-variant="dark"
-        text-variant="light"
-        shadow
-      >
-        <div class="px-3 py-2 sideBarElementContainer">
-          <img
-            id="logo"
-            class="leftNavbarWrapper__logo"
-            :class="this.logoAnimation ? 'logoAnimation' : ''"
-            src="../assets/mylogo-white.png"
-            type="button"
-            @click="() => (this.pageState = 0)"
-          />
-          <ul class="navbarListWrapper">
-            <li
-              @click="
-                () => {
-                  this.logoAnimation = true;
-                  this.pageState = 1;
-                }
-              "
-              type="button"
-              :class="pageState === 1 ? 'selectedListElement' : 'listElements'"
-            >
-              WHY US
-            </li>
-            <li type="button" class="listElements">
-              PROJECTS
-            </li>
-            <li type="button" class="listElements">REVIEWS</li>
-            <li type="button" class="listElements">CONTACT US</li>
-          </ul>
-        </div>
-      </b-sidebar>
-    </div>
     <div class="leftNavbarWrapper">
       <img
         id="logo"
@@ -68,6 +29,55 @@
         <li type="button" class="listElements">CONTACT US</li>
       </ul>
     </div>
+    <div class="componentsWindow">
+      <div class="sideBarButton">
+        <b-button v-b-toggle.sidebar-variant>
+          <img class="menuIcon" src="../assets/menu-icon.png" alt="" />
+        </b-button>
+        <b-sidebar
+          id="sidebar-variant"
+          bg-variant="dark"
+          text-variant="light"
+          shadow
+        >
+          <div class="px-3 py-2 sideBarElementContainer">
+            <img
+              id="logo"
+              class="leftNavbarWrapper__logo"
+              src="../assets/mylogo-white.png"
+              type="button"
+              @click="() => (this.pageState = 0)"
+            />
+            <ul class="navbarListWrapper">
+              <li
+                @click="() => (this.pageState = 1)"
+                type="button"
+                :class="
+                  pageState === 1 ? 'selectedListElement' : 'listElements'
+                "
+              >
+                WHY US
+              </li>
+              <li type="button" class="listElements">
+                PROJECTS
+              </li>
+              <li type="button" class="listElements">REVIEWS</li>
+              <li type="button" class="listElements">CONTACT US</li>
+            </ul>
+          </div>
+        </b-sidebar>
+      </div>
+      <transition v-if="this.pageState === 1" name="showChildAnimated">
+        <home></home>
+      </transition>
+      <img
+        type="button"
+        @click="() => (this.pageState = 1)"
+        class="goDown"
+        src="../assets/down-icon.png"
+        alt=""
+      />
+    </div>
     <transition v-if="this.pageState === 0" name="initialTextAnimation">
       <div class="initalTextContainer">
         <h1 class="entryTitle">
@@ -76,11 +86,6 @@
         <p id="demo" class="entryText"></p>
       </div>
     </transition>
-    <div class="componentsWindow">
-      <transition v-if="this.pageState === 1" name="showChildAnimated">
-        <home></home>
-      </transition>
-    </div>
   </div>
 </template>
 
@@ -123,6 +128,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.sideBarButton {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.menuIcon {
+  height: 40px;
+}
+
 .leftNavbarWrapper {
   height: 100vh;
   width: 25vw;
@@ -147,19 +161,6 @@ export default {
   align-items: center;
 }
 
-.logoAnimation {
-  animation-name: logoAnimation;
-  animation-duration: 1s;
-  animation-delay: 0s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-out;
-}
-@keyframes logoAnimation {
-  100% {
-    height: 35vh;
-    margin-top: 20vh;
-  }
-}
 .initalTextContainer {
   position: absolute;
   top: 10vh;
@@ -211,15 +212,12 @@ export default {
 }
 .backgroundImage {
   background-image: url("../assets/main-background.png");
-  background-size: 100% 100%;
   height: 100vh;
-  /* filter: blur(8px); */
-  /* background: rgba(0, 0, 0, 0.3); */
 }
 
 .componentsWindow {
   height: 100vh;
-  position: absolute;
+  position: relative;
   color: black;
   top: 0vh;
   left: 0;
@@ -229,6 +227,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.goDown {
+  position: absolute;
+  bottom: 1vh;
+  right: 0;
+  left: 0;
+  margin: auto;
+  height: 50px;
+  width: 65px;
+  align-self: flex-end;
 }
 
 .showChildAnimated-enter-active,
@@ -269,6 +277,9 @@ export default {
 }
 
 @media only screen and (min-width: 770px) {
+  .sideBarButton {
+    display: none;
+  }
   .leftNavbarWrapper {
     height: 100vh;
     width: 25vw;
@@ -301,7 +312,7 @@ export default {
   .initalTextContainer {
     position: absolute;
     top: 30vh;
-    left: 10vh;
+    left: 0vh;
     z-index: 1;
   }
   .entryText {
@@ -311,13 +322,14 @@ export default {
     text-align: center;
     top: 29vh;
     left: 25vw;
+    margin: 0 5vw;
     font-weight: 600;
   }
   .entryTitle {
     color: white;
     font-size: 10vh;
-    width: 90vw;
     opacity: 0%;
+    margin-left: 9vw;
     font-family: "Montserrat", sans-serif;
     -webkit-text-stroke: 1px black;
     animation-name: entryTextAnimation;
