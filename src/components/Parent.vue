@@ -1,6 +1,6 @@
 <template>
-  <div class="backgroundImage" id="app">
-    <div class="leftNavbarWrapper">
+  <div>
+    <!-- <div class="leftNavbarWrapper">
       <img
         id="logo"
         class="leftNavbarWrapper__logo"
@@ -19,96 +19,44 @@
           "
           type="button"
           :class="pageState === 1 ? 'selectedListElement' : 'listElements'"
-        >
-          WHY US
-        </li>
-        <li type="button" class="listElements">
-          PROJECTS
-        </li>
+        >WHY US</li>
+        <li type="button" class="listElements">PROJECTS</li>
         <li type="button" class="listElements">REVIEWS</li>
         <li type="button" class="listElements">CONTACT US</li>
       </ul>
-    </div>
+    </div>-->
 
-    <div :class="hideMenu ? 'hideMenu' : 'showMenu'" class="sideBarButton">
-      <b-sidebar
-        id="sidebar-variant"
-        bg-variant="dark"
-        text-variant="light"
-        shadow
-      >
-        <div class="px-3 py-2 sideBarElementContainer">
-          <img
-            id="logo"
-            class="leftNavbarWrapper__logo"
-            src="../assets/mylogo-white.png"
-            @click="() => (this.pageState = 0)"
-          />
-          <ul class="navbarListWrapper">
-            <li @click="() => goToSelected(1)">
-              WHY US
-            </li>
-            <li class="listElements">
-              PROJECTS
-            </li>
-            <li class="listElements">REVIEWS</li>
-            <li class="listElements">CONTACT US</li>
-          </ul>
-        </div>
-      </b-sidebar>
-    </div>
-    <div class="componentsWindow">
-      <img
-        v-b-toggle.sidebar-variant
-        class="menuIcon"
-        src="../assets/menu-icon.png"
-        alt=""
-      />
-      <div v-if="this.posibleComp[this.pageState - 1]" class="goUpContainer">
-        <img
-          @click="() => scroll('up')"
-          class="scrollUpIcon"
-          src="../assets/up-icon.png"
-          alt=""
-        />
-        <p class="scrollText">{{ this.posibleComp[this.pageState - 1] }}</p>
-      </div>
-      <transition :name="this.currentSlide">
-        <home v-if="this.pageState === 1"></home>
-      </transition>
-      <div v-if="this.posibleComp[this.pageState + 1]" class="goDownContainer">
+    <!-- <div class="componentsWindow"> -->
+    <!-- <transition name="scrollDown"> -->
+    <!-- <home v-if="this.pageState === 1"></home> -->
+    <!-- <router-view /> -->
+    <!-- </transition> -->
+
+    <!-- <div v-if="this.posibleComp[this.pageState + 1]" class="goDownContainer">
         <p class="scrollText">{{ this.posibleComp[this.pageState + 1] }}</p>
-        <img
-          @click="() => scroll('down')"
-          class="scrollDownIcon"
-          src="../assets/down-icon.png"
-          alt=""
-        />
-      </div>
-    </div>
-    <transition name="initialTextAnimation">
+        <img @click="scroll('down')" class="scrollDownIcon" src="../assets/down-icon.png" alt />
+    </div>-->
+    <!-- </div> -->
+    <!-- <transition name="initialTextAnimation">
       <div v-if="this.pageState === 0" class="initalTextContainer">
-        <h1 class="entryTitle">
-          TAKE THE EASIEST AND OPTIMAL WAY
-        </h1>
+        <h1 class="entryTitle">TAKE THE EASIEST AND OPTIMAL WAY</h1>
         <p id="demo" class="entryText"></p>
       </div>
-    </transition>
+    </transition>-->
   </div>
 </template>
 
 <script>
-import HomeVue from "./Home.vue";
+// import HomeVue from "./Home.vue";
 export default {
   name: "Parent",
   components: {
-    home: HomeVue,
+    // home: HomeVue,
   },
   data() {
     return {
-      pageState: 0,
+      pageState: null,
       logoAnimation: false,
-      hideMenu: false,
       posibleComp: ["welcome", "why us?"],
       currentSlide: null,
     };
@@ -116,244 +64,41 @@ export default {
   methods: {
     goToSelected: function goToSelected(screenToGo) {
       this.pageState = screenToGo;
-      this.hideMenu = true;
     },
-    scroll: function scroll(direction) {
-      if (direction === "up") {
-        this.currentSlide = "scrollUp";
-        this.pageState--;
-      } else {
-        this.currentSlide = "scrollDown";
-        this.pageState++;
-      }
+    scroll: function scroll() {
+      this.currentSlide = "scrollDown";
+      this.pageState++;
+      this.$router.push({ path: "/home" });
     },
   },
   created() {
-    if (this.pageState === 0) {
-      var txt =
-        "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
-      var i = 0;
-      setTimeout(() => {
-        const writeNow = () => {
-          if (i < txt.length) {
-            if (this.pageState === 0) {
-              document.getElementById("demo").innerHTML += txt.charAt(i);
-              i++;
-            } else clearInterval(interval);
-          }
-        };
-        var interval = setInterval(writeNow, 30);
-      }, 1500);
-    }
+    this.pageState = 0;
   },
 
   watch: {
-    pageState() {
-      if (this.pageState === 0) {
-        var txt =
-          "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
-        var i = 0;
-        setTimeout(() => {
-          const writeNow = () => {
-            if (i < txt.length) {
-              if (this.pageState === 0) {
-                document.getElementById("demo").innerHTML += txt.charAt(i);
-                i++;
-              } else clearInterval(interval);
-            }
-          };
-          var interval = setInterval(writeNow, 30);
-        }, 1500);
-      }
-    },
+    // pageState() {
+    //   if (this.pageState === 0) {
+    //     var txt =
+    //       "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
+    //     var i = 0;
+    //     setTimeout(() => {
+    //       const writeNow = () => {
+    //         if (i < txt.length) {
+    //           if (this.pageState === 0 && this.$route.path === "/parent") {
+    //             document.getElementById("demo").innerHTML += txt.charAt(i);
+    //             i++;
+    //           } else clearInterval(interval);
+    //         }
+    //       };
+    //       var interval = setInterval(writeNow, 30);
+    //     }, 1500);
+    //   }
+    // },
   },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=Montserrat:wght@900&display=swap");
-#app {
-  font-family: "Kumbh Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-.sideBarButton {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 4;
-}
-.menuIcon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 40px;
-  margin: 2vh;
-  border-radius: none;
-  outline: none;
-}
-
-.hideMenu {
-  display: none;
-}
-.showMenu {
-  display: inline-block;
-}
-
-.leftNavbarWrapper {
-  height: 100vh;
-  width: 25vw;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  display: none;
-}
-
-.leftNavbarWrapper__logo {
-  height: 30vh;
-  color: white;
-}
-
-.sideBarElementContainer {
-  margin-top: 7vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.initalTextContainer {
-  position: absolute;
-  top: 10vh;
-}
-.entryText {
-  color: black;
-  font-size: 5.4vw;
-  position: absolute;
-  top: 47vh;
-  font-weight: 600;
-  margin-left: 2vh;
-  margin-right: 1.5vh;
-}
-.entryTitle {
-  color: white;
-  font-size: 14vw;
-  opacity: 0%;
-  margin-left: 5vw;
-  font-family: "Montserrat", sans-serif;
-  -webkit-text-stroke: 1px black;
-  animation-name: entryTextAnimation;
-  animation-duration: 0.85s;
-  animation-delay: 0.2s;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-out;
-}
-
-@keyframes entryTextAnimation {
-  100% {
-    opacity: 100%;
-  }
-}
-
-.navbarListWrapper {
-  margin-top: 6vh;
-  list-style-type: none;
-  padding: 0;
-}
-.listElements {
-  margin: 3vh 0;
-  font-size: 3vh;
-  color: white;
-}
-.selectedListElement {
-  margin: 3vh 0;
-}
-.listElements:hover {
-  color: gray;
-}
-.backgroundImage {
-  background-image: url("../assets/main-background.png");
-  height: 100vh;
-}
-
-.componentsWindow {
-  height: 100vh;
-  position: relative;
-  color: black;
-  padding: 0vh 1.5vh;
-  background: rgba(245, 245, 245, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.goUpContainer {
-  margin-bottom: 1vh;
-  position: fixed;
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.goDownContainer {
-  margin-bottom: 1vh;
-  position: fixed;
-  align-self: flex-end;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.scrollText {
-  margin: 0;
-}
-.scrollDownIcon {
-  height: 30px;
-  width: 45px;
-}
-.scrollUpIcon {
-  margin-top: 1vh;
-  -webkit-transform: scaleY(-1);
-  transform: scaleY(-1);
-  height: 30px;
-  width: 45px;
-}
-
-.scrollDown-enter-active,
-.scrollDown-leave-active {
-  transition: transform 2s;
-}
-.scrollDown-enter {
-  transform: translateY(100vh);
-}
-.scrollDown-leave-to {
-  transform: translateY(-100vh);
-}
-
-.scrollUp-enter-active,
-.scrollUp-leave-active {
-  transition: transform 2s;
-}
-.scrollUp-enter {
-  transform: translateY(-100vh);
-}
-.scrollUp-leave-to {
-  transform: translateY(100vh);
-}
-
-.initialTextAnimation-leave-active {
-  transition: transform 2s;
-}
-.initialTextAnimation-leave {
-  transform: translateY(0vh);
-}
-.initialTextAnimation-leave-to {
-  transform: translateY(-100vh);
-}
-
 @media only screen and (min-width: 770px) {
   .sideBarButton {
     display: none;
@@ -444,8 +189,8 @@ export default {
   .backgroundImage {
     background-image: url("../assets/main-background.png");
     background-size: 100% 100%;
-    /* filter: blur(8px); */
-    /* background: rgba(0, 0, 0, 0.3); */
+    filter: blur(8px);
+    background: rgba(0, 0, 0, 0.3);
   }
 
   .componentsWindow {
@@ -462,7 +207,7 @@ export default {
     align-items: center;
   }
 
-  /* .showChildAnimated-enter-active,
+  .showChildAnimated-enter-active,
   .showChildAnimated-leave-active {
     transition: opacity 0.5s ease-in-out, transform 0.5s ease;
     transition-duration: 1s;
@@ -497,6 +242,6 @@ export default {
   .initialTextAnimation-enter-to,
   .initialTextAnimation-leave {
     opacity: 1;
-  } */
+  }
 }
 </style>

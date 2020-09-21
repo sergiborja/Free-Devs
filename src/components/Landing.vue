@@ -21,7 +21,7 @@ export default {
     msg: String,
   },
   methods: {
-    clicked: function() {
+    clicked: function () {
       this.$router.push({ path: "/parent" });
     },
   },
@@ -33,6 +33,7 @@ export default {
 .wrapper {
   background-color: rgb(31, 30, 30);
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
