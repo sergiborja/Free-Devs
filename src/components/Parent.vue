@@ -64,18 +64,30 @@
         src="../assets/menu-icon.png"
         alt=""
       />
-      <transition v-if="this.pageState === 1" name="showChildAnimated">
-        <home></home>
+      <div v-if="this.posibleComp[this.pageState - 1]" class="goUpContainer">
+        <img
+          @click="() => scroll('up')"
+          class="scrollUpIcon"
+          src="../assets/up-icon.png"
+          alt=""
+        />
+        <p class="scrollText">{{ this.posibleComp[this.pageState - 1] }}</p>
+      </div>
+      <transition :name="this.currentSlide">
+        <home v-if="this.pageState === 1"></home>
       </transition>
-      <img
-        @click="() => pageState++"
-        class="goDown"
-        src="../assets/down-icon.png"
-        alt=""
-      />
+      <div v-if="this.posibleComp[this.pageState + 1]" class="goDownContainer">
+        <p class="scrollText">{{ this.posibleComp[this.pageState + 1] }}</p>
+        <img
+          @click="() => scroll('down')"
+          class="scrollDownIcon"
+          src="../assets/down-icon.png"
+          alt=""
+        />
+      </div>
     </div>
-    <transition v-if="this.pageState === 0" name="initialTextAnimation">
-      <div class="initalTextContainer">
+    <transition name="initialTextAnimation">
+      <div v-if="this.pageState === 0" class="initalTextContainer">
         <h1 class="entryTitle">
           TAKE THE EASIEST AND OPTIMAL WAY
         </h1>
@@ -97,6 +109,8 @@ export default {
       pageState: 0,
       logoAnimation: false,
       hideMenu: false,
+      posibleComp: ["welcome", "why us?"],
+      currentSlide: null,
     };
   },
   methods: {
@@ -104,20 +118,54 @@ export default {
       this.pageState = screenToGo;
       this.hideMenu = true;
     },
+    scroll: function scroll(direction) {
+      if (direction === "up") {
+        this.currentSlide = "scrollUp";
+        this.pageState--;
+      } else {
+        this.currentSlide = "scrollDown";
+        this.pageState++;
+      }
+    },
   },
-  mounted() {
-    var txt =
-      "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
-    var i = 0;
-    setTimeout(function() {
-      const writeNow = () => {
-        if (i < txt.length) {
-          document.getElementById("demo").innerHTML += txt.charAt(i);
-          i++;
-        }
-      };
-      setInterval(writeNow, 30);
-    }, 1500);
+  created() {
+    if (this.pageState === 0) {
+      var txt =
+        "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
+      var i = 0;
+      setTimeout(() => {
+        const writeNow = () => {
+          if (i < txt.length) {
+            if (this.pageState === 0) {
+              document.getElementById("demo").innerHTML += txt.charAt(i);
+              i++;
+            } else clearInterval(interval);
+          }
+        };
+        var interval = setInterval(writeNow, 30);
+      }, 1500);
+    }
+  },
+
+  watch: {
+    pageState() {
+      if (this.pageState === 0) {
+        var txt =
+          "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
+        var i = 0;
+        setTimeout(() => {
+          const writeNow = () => {
+            if (i < txt.length) {
+              if (this.pageState === 0) {
+                document.getElementById("demo").innerHTML += txt.charAt(i);
+                i++;
+              } else clearInterval(interval);
+            }
+          };
+          var interval = setInterval(writeNow, 30);
+        }, 1500);
+      }
+    },
   },
 };
 </script>
@@ -183,19 +231,18 @@ export default {
 }
 .entryText {
   color: black;
-  font-size: 6vw;
+  font-size: 5.4vw;
   position: absolute;
   top: 47vh;
   font-weight: 600;
-  margin-top: 5vh;
-  margin-left: 1.5vh;
-  margin-right: 1vh;
+  margin-left: 2vh;
+  margin-right: 1.5vh;
 }
 .entryTitle {
   color: white;
-  font-size: 15vw;
+  font-size: 14vw;
   opacity: 0%;
-  margin-left: 10vw;
+  margin-left: 5vw;
   font-family: "Montserrat", sans-serif;
   -webkit-text-stroke: 1px black;
   animation-name: entryTextAnimation;
@@ -236,59 +283,75 @@ export default {
   height: 100vh;
   position: relative;
   color: black;
-  top: 0vh;
-  left: 0;
-  right: 0vw;
-  padding: 2vh;
+  padding: 0vh 1.5vh;
   background: rgba(245, 245, 245, 0.4);
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.goUpContainer {
+  margin-bottom: 1vh;
+  position: fixed;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.goDown {
+.goDownContainer {
+  margin-bottom: 1vh;
   position: fixed;
-  bottom: 1vh;
-  right: 0;
-  left: 0;
-  margin: auto;
-  height: 50px;
-  width: 65px;
   align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scrollText {
+  margin: 0;
+}
+.scrollDownIcon {
+  height: 30px;
+  width: 45px;
+}
+.scrollUpIcon {
+  margin-top: 1vh;
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+  height: 30px;
+  width: 45px;
 }
 
-.showChildAnimated-enter-active,
-.showChildAnimated-leave-active {
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease;
-  transition-duration: 5s;
+.scrollDown-enter-active,
+.scrollDown-leave-active {
+  transition: transform 2s;
+}
+.scrollDown-enter {
+  transform: translateY(100vh);
+}
+.scrollDown-leave-to {
+  transform: translateY(-100vh);
 }
 
-.showChildAnimated-enter-active {
-  transition-delay: 0.5s;
+.scrollUp-enter-active,
+.scrollUp-leave-active {
+  transition: transform 2s;
 }
-
-.showChildAnimated-enter,
-.showChildAnimated-leave-to {
-  opacity: 0;
+.scrollUp-enter {
+  transform: translateY(-100vh);
 }
-.showChildAnimated-enter-to,
-.showChildAnimated-leave {
-  opacity: 1;
+.scrollUp-leave-to {
   transform: translateY(100vh);
 }
 
-.initialTextAnimation-enter-active,
 .initialTextAnimation-leave-active {
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease;
-  transition-duration: 1s;
-  transform: translateY(-100vh);
+  transition: transform 2s;
 }
-.initialTextAnimation-enter,
-.initialTextAnimation-leave-to {
-  opacity: 0;
-}
-.initialTextAnimation-enter-to,
 .initialTextAnimation-leave {
-  opacity: 1;
+  transform: translateY(0vh);
+}
+.initialTextAnimation-leave-to {
+  transform: translateY(-100vh);
 }
 
 @media only screen and (min-width: 770px) {
@@ -399,7 +462,7 @@ export default {
     align-items: center;
   }
 
-  .showChildAnimated-enter-active,
+  /* .showChildAnimated-enter-active,
   .showChildAnimated-leave-active {
     transition: opacity 0.5s ease-in-out, transform 0.5s ease;
     transition-duration: 1s;
@@ -434,6 +497,6 @@ export default {
   .initialTextAnimation-enter-to,
   .initialTextAnimation-leave {
     opacity: 1;
-  }
+  } */
 }
 </style>

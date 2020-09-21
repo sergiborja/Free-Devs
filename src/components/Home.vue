@@ -1,8 +1,5 @@
 <template>
   <div>
-    <span>
-      <h1>Welcome to FreeDevs</h1>
-    </span>
     <div>
       <h3>Why are we your way to achieve success?</h3>
       <p>-Optimized and clean code guarantee.</p>
