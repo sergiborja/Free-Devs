@@ -1,13 +1,11 @@
 <template>
   <div class="welcomeWrapper">
-    <transition name="initialTextAnimation">
-      <div class="initalTextContainer">
-        <h1 class="entryTitle">
-          TAKE YOUR SOFTWARE DEVELOPMENT TO THE NEXT LEVEL
-        </h1>
-        <p id="demo" class="entryText"></p>
-      </div>
-    </transition>
+    <div class="initalTextContainer">
+      <h1 class="entryTitle">
+        TAKE YOUR SOFTWARE DEVELOPMENT TO THE NEXT LEVEL
+      </h1>
+      <p id="demo" class="entryText"></p>
+    </div>
   </div>
 </template>
 
@@ -15,6 +13,7 @@
 export default {
   name: "Welcome",
   methods: {},
+
   created() {
     var txt =
       "We offer you a cohesive team of professional developers, with experience working together in the most optimal and efficient mode.";
@@ -37,8 +36,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .welcomeWrapper {
-  background-image: url("../assets/blue-back.jpg");
-  height: 100vh;
+  margin-top: 11vh;
 }
 .initalTextContainer {
   display: flex;
@@ -52,35 +50,39 @@ export default {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   letter-spacing: 0.5px;
+  margin-top: 10vh;
+  text-align: start;
 }
 .entryTitle {
   position: relative;
   font-weight: 900;
   color: white;
   font-size: 11vw;
-  opacity: 0%;
+  letter-spacing: 1.5px;
+  transform: scale(1, 1.1);
   font-family: "Montserrat", sans-serif;
-  -webkit-text-stroke: 0.9px black;
+  /* -webkit-text-stroke: 0.9px black; */
   animation-name: entryTextAnimation;
   animation-duration: 0.85s;
   animation-delay: 0.2s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
 }
-@keyframes entryTextAnimation {
+
+/* .initializeAnimation {
+  animation-name: entryWelcomeAnimation;
+  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes entryWelcomeAnimation {
   100% {
     opacity: 100%;
   }
-}
-.initialTextAnimation-leave-active {
-  transition: transform 2s;
-}
-.initialTextAnimation-leave {
-  transform: translateY(0vh);
-}
-.initialTextAnimation-leave-to {
-  transform: translateY(-100vh);
-}
+} */
+
 @media only screen and (min-width: 770px) {
   .initalTextContainer {
     display: flex;
@@ -100,14 +102,15 @@ export default {
     letter-spacing: 0.5px;
     color: white;
     font-size: 8vh;
-    opacity: 0%;
+    opacity: 100%;
+    transform: none;
     font-family: "Montserrat", sans-serif;
     -webkit-text-stroke: 0.9px black;
-    animation-name: entryTextAnimation;
+    /* animation-name: entryTextAnimation;
     animation-duration: 0.85s;
     animation-delay: 0.2s;
     animation-fill-mode: forwards;
-    animation-timing-function: ease-out;
+    animation-timing-function: ease-out; */
   }
   .entryText {
     position: absolute;
@@ -117,6 +120,7 @@ export default {
     font-weight: 400;
     letter-spacing: 0.5px;
     text-align: start;
+    margin-top: 0vh;
     top: 70vh;
     left: 0;
   }
