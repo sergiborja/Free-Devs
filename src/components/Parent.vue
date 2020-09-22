@@ -100,7 +100,7 @@ export default {
 
 <style>
 @media only screen and (min-width: 770px) {
-  .sideBarButton {
+  /* .sideBarButton {
     display: none;
   }
   .leftNavbarWrapper {
@@ -189,7 +189,6 @@ export default {
   .backgroundImage {
     background-image: url("../assets/main-background.png");
     background-size: 100% 100%;
-    filter: blur(8px);
     background: rgba(0, 0, 0, 0.3);
   }
 
@@ -242,6 +241,6 @@ export default {
   .initialTextAnimation-enter-to,
   .initialTextAnimation-leave {
     opacity: 1;
-  }
+  } */
 }
 </style>

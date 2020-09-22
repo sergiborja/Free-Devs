@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="welcomeWrapper">
     <transition name="initialTextAnimation">
       <div class="initalTextContainer">
-        <h1 class="entryTitle">TAKE THE EASIEST AND OPTIMAL WAY</h1>
+        <h1 class="entryTitle">
+          TAKE YOUR SOFTWARE DEVELOPMENT TO THE NEXT LEVEL
+        </h1>
         <p id="demo" class="entryText"></p>
       </div>
     </transition>
@@ -34,13 +36,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.welcomeWrapper {
+  background-image: url("../assets/blue-back.jpg");
+  height: 100vh;
+}
 .initalTextContainer {
-  margin-top: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 10vh 2vh;
 }
 .entryText {
   color: black;
@@ -52,12 +56,11 @@ export default {
 .entryTitle {
   position: relative;
   font-weight: 900;
-  letter-spacing: 0.5px;
   color: white;
-  font-size: 14vw;
+  font-size: 11vw;
   opacity: 0%;
   font-family: "Montserrat", sans-serif;
-  -webkit-text-stroke: 1px black;
+  -webkit-text-stroke: 0.9px black;
   animation-name: entryTextAnimation;
   animation-duration: 0.85s;
   animation-delay: 0.2s;
@@ -77,5 +80,45 @@ export default {
 }
 .initialTextAnimation-leave-to {
   transform: translateY(-100vh);
+}
+@media only screen and (min-width: 770px) {
+  .initalTextContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0vh;
+    bottom: 10vh;
+    margin: auto;
+    left: 25vw;
+  }
+  .entryTitle {
+    position: relative;
+    margin-left: -20vw;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: white;
+    font-size: 8vh;
+    opacity: 0%;
+    font-family: "Montserrat", sans-serif;
+    -webkit-text-stroke: 0.9px black;
+    animation-name: entryTextAnimation;
+    animation-duration: 0.85s;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+  .entryText {
+    position: absolute;
+    color: black;
+    font-size: 3vh;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-align: start;
+    top: 70vh;
+    left: 0;
+  }
 }
 </style>
