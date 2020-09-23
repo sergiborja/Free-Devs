@@ -1,7 +1,7 @@
 <template>
   <div
     class="appWrapper"
-    :class="pageState !== 'welcome' ? 'showOverflow' : 'hideOverflow'"
+    :class="pageState === 'home' ? 'showOverflow' : 'hideOverflow'"
     id="app"
   >
     <div class="leftNavbarWrapper">
@@ -38,7 +38,15 @@
         >
           WHY US
         </li>
-        <li type="button" class="listElements">CONTACT US</li>
+        <li
+          type="button"
+          :class="
+            pageState === 'contact' ? 'selectedListElement' : 'listElements'
+          "
+          @click="() => navBarNavigation('contact')"
+        >
+          CONTACT US
+        </li>
       </ul>
     </div>
     <div class="sideBarButton">
@@ -233,7 +241,11 @@ export default {
   transition: opacity 1s;
 }
 .routingTransition-enter {
+  opacity: 0;
+}
+.routingTransition-enter-to {
   opacity: 1;
+  transition-delay: 0.5s;
 }
 .routingTransition-leave-to {
   opacity: 0;
@@ -242,6 +254,7 @@ export default {
 @media only screen and (min-width: 770px) {
   .childContainer {
     margin-left: 26vw;
+    width: 100vw;
     margin: none;
   }
   .sideBarButton {
@@ -285,7 +298,7 @@ export default {
     position: fixed;
     height: 100vh;
     width: 25vw;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(36, 60, 112, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

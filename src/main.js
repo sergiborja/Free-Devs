@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Landing from "./components/Landing";
 import Parent from "./components/Parent";
 import Welcome from "./components/Welcome";
+import Contact from "./components/Contact";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -17,6 +18,7 @@ const routes = [
   { path: "/landing", component: Landing },
   { path: "/Parent", component: Parent },
   { path: "/welcome", component: Welcome },
+  { path: "/contact", component: Contact },
 ];
 
 const router = new VueRouter({ routes, mode: "history" });

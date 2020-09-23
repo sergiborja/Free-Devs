@@ -94,6 +94,7 @@ export default {
     bottom: 10vh;
     margin: auto;
     left: 25vw;
+    right: 5vw;
   }
   .entryTitle {
     position: relative;
