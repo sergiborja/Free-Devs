@@ -1,7 +1,11 @@
 <template>
   <div
     class="appWrapper"
-    :class="pageState === 'home' ? 'showOverflow' : 'hideOverflow'"
+    :class="
+      pageState === 'home' || pageState === 'about'
+        ? 'showOverflow'
+        : 'hideOverflow'
+    "
     id="app"
   >
     <div class="leftNavbarWrapper">
@@ -30,6 +34,15 @@
           "
         >
           WELCOME
+        </li>
+        <li
+          type="button"
+          :class="
+            pageState === 'about' ? 'selectedListElement' : 'listElements'
+          "
+          @click="() => navBarNavigation('about')"
+        >
+          ABOUT US
         </li>
         <li
           @click="() => navBarNavigation('home')"
@@ -85,29 +98,73 @@
             </li>
             <li
               :class="
+                pageState === 'about' ? 'selectedListElement' : 'listElements'
+              "
+              @click="() => navBarNavigation('about')"
+            >
+              ABOUT US
+            </li>
+            <li
+              :class="
                 pageState === 'home' ? 'selectedListElement' : 'listElements'
               "
               @click="() => navBarNavigation('home')"
             >
               WHY US
             </li>
-            <li class="listElements">CONTACT US</li>
+            <li
+              :class="
+                pageState === 'contact' ? 'selectedListElement' : 'listElements'
+              "
+              @click="() => navBarNavigation('contact')"
+            >
+              CONTACT US
+            </li>
           </ul>
         </div>
       </b-sidebar>
     </div>
     <div class="childContainer">
-      <transition name="routingTransition">
-        <router-view />
+      <transition mode="out-in" name="routingTransition">
+        <router-view @message="setMessage" />
       </transition>
     </div>
-    <div class="goDownContainer">
-      <p class="scrollText">{{ this.posibleComp[this.pageState + 1] }}</p>
+
+    <div
+      v-if="this.posibleComp[this.posibleComp.indexOf(this.pageState) + 1]"
+      class="goDownContainer"
+    >
+      <p class="scrollText">
+        {{ this.posibleComp[this.posibleComp.indexOf(this.pageState) + 1] }}
+      </p>
       <img
-        @click="navBarNavigation('home')"
+        @click="
+          () =>
+            navBarNavigation(
+              this.posibleComp[this.posibleComp.indexOf(this.pageState) + 1]
+            )
+        "
         class="scrollDownIcon"
         src="./assets/down-icon.png"
       />
+    </div>
+    <div
+      v-if="this.posibleComp[this.posibleComp.indexOf(this.pageState) - 1]"
+      class="goUpContainer"
+    >
+      <img
+        @click="
+          () =>
+            navBarNavigation(
+              this.posibleComp[this.posibleComp.indexOf(this.pageState) - 1]
+            )
+        "
+        class="scrollDownIcon"
+        src="./assets/up-icon.png"
+      />
+      <p class="scrollText">
+        {{ this.posibleComp[this.posibleComp.indexOf(this.pageState) - 1] }}
+      </p>
     </div>
   </div>
 </template>
@@ -118,10 +175,13 @@ export default {
   data() {
     return {
       pageState: null,
-      posibleComp: ["welcome", "why us?", "contact-us"],
+      posibleComp: ["welcome", "about", "home", "contact"],
     };
   },
   methods: {
+    setMessage: function setMessage(message) {
+      this.navBarNavigation(message);
+    },
     scroll: function scroll() {
       this.currentSlide = "scrollDown";
       this.$router.push({ path: "/home" });
@@ -154,6 +214,7 @@ export default {
   top: 0;
   right: 0;
   left: 0;
+  flex-direction: column;
 }
 .showOverflow {
   overflow-y: scroll;
@@ -217,8 +278,20 @@ export default {
 }
 
 .goDownContainer {
-  margin-bottom: 1vh;
   position: fixed;
+  bottom: 1vh;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  justify-content: center;
+  align-items: center;
+}
+.goUpContainer {
+  top: 1vh;
+  position: absolute;
   left: 0;
   right: 0;
   margin: auto;
@@ -226,7 +299,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  bottom: 1vh;
 }
 .scrollText {
   margin: 0;
@@ -250,19 +322,24 @@ export default {
 .routingTransition-leave-to {
   opacity: 0;
 }
+.getToKnowButton {
+  display: none;
+}
 
 @media only screen and (min-width: 770px) {
   .childContainer {
-    margin-left: 26vw;
-    width: 100vw;
+    margin-left: 23vw;
     margin: none;
   }
   .sideBarButton {
     display: none;
   }
-  .goDownContainer {
+
+  .goDownContainer,
+  .goUpContainer {
     display: none;
   }
+
   .slogan {
     font-family: "Montserrat", sans-serif;
     position: absolute;
@@ -298,13 +375,13 @@ export default {
     position: fixed;
     height: 100vh;
     width: 25vw;
-    background-color: rgba(36, 60, 112, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     max-width: 23%;
     display: flex;
+    background-color: #758aa7;
   }
 
   .leftNavbarWrapper__logo {
